@@ -47,5 +47,10 @@ public class PlayerControllerTFIL : MonoBehaviour
         {
             isOnGround = true;
         }
+
+    if(collision.gameObject.CompareTag("Platform"))
+        {
+            isOnGround = true;
+        }
     }
 }
