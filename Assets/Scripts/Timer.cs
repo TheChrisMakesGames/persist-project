@@ -6,23 +6,40 @@ using TMPro;
 public class Timer : MonoBehaviour
 {
     public bool isPlaying;
-    public TextMeshProUGUI txt;
+    public float threshold = 30.0f;
+    public float elapsedTime;
+    public bool time;
+    public TextMeshProUGUI timerText;
+    private GameManager4BallCatcher gameManager;
     void Awake() 
     {
-        txt = GetComponent<TextMeshProUGUI>();
+        
     }
     // Start is called before the first frame update
     void Start()
     {
-        isPlaying = true;
+        elapsedTime = 0.0f;
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager4BallCatcher>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(isPlaying)
+        if(time == true)
         {
-            txt.text = Time.time.ToString("#.00");
-        }
+            elapsedTime += Time.deltaTime;
+            string formattedTime = System.TimeSpan.FromSeconds(elapsedTime).ToString("mm\\:ss");
+            Debug.Log(formattedTime);
+            timerText.SetText("Time: " + formattedTime);
+
+            if(elapsedTime > threshold)
+            {
+                Debug.Log("Time out!");
+                elapsedTime = 0.0f;
+                isPlaying = false;
+                time = false;
+                gameManager.GameOver();
+            }
+        } 
     }
 }

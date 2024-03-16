@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Ground
   - Platform
+  - Bad
+  - Panel 1
+  - Crate
+  - Sensor
   layers:
   - Default
   - TransparentFX
