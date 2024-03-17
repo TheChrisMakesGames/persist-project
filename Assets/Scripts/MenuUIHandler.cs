@@ -9,10 +9,12 @@ using UnityEditor;
 #endif
 public class MenuUIHandler : MonoBehaviour
 {
+    private PlayerDataHandleX playerDataHandleX;
+    [SerializeField] TextMeshProUGUI PlayerNameInput;
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerDataHandleX = GameObject.Find("Player Data Handle").GetComponent<PlayerDataHandleX>();
     }
 
     // Update is called once per frame
@@ -20,6 +22,7 @@ public class MenuUIHandler : MonoBehaviour
     {
         
     }
+
     public void GoToHome() 
     {
         SceneManager.LoadScene(0);
@@ -44,7 +47,14 @@ public class MenuUIHandler : MonoBehaviour
         SceneManager.LoadScene(2);
     }
 
-    
+    public void StartBallCatcher()
+    {
+        SceneManager.LoadScene(3);
+    }
 
+    public void SetPlayerName()
+    {
+        PlayerDataHandleX.Instance.PlayerName = PlayerNameInput.text;
+    }
     
 }

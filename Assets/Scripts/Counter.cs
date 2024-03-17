@@ -20,8 +20,8 @@ public class Counter : MonoBehaviour
         if(counting == true)
         {
             Score += 1;
+            PlayerDataHandleX.Instance.Score = Score;
             ScoreText.text = "Score : " + Score;
-            EndScoreText.text = "Score : " + Score;
         }
     }
 }
