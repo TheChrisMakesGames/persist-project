@@ -11,6 +11,7 @@ public class MenuUIHandler : MonoBehaviour
 {
     private PlayerDataHandleX playerDataHandleX;
     [SerializeField] TextMeshProUGUI PlayerNameInput;
+    public bool playingBallNinja;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,11 +45,13 @@ public class MenuUIHandler : MonoBehaviour
 
     public void StartBallNinja() 
     {
+        playingBallNinja = true;
         SceneManager.LoadScene(2);
     }
 
     public void StartBallCatcher()
     {
+        playingBallNinja = false;
         SceneManager.LoadScene(3);
     }
 

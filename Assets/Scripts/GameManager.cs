@@ -53,9 +53,9 @@ public class GameManager : MonoBehaviour
     }
     public void UpdateScore(int scoreToAdd)
     {
-        score += scoreToAdd;
-        PlayerDataHandleX.Instance.Score = score;
-        scoreText.text = "Score: " + score;
+            score += scoreToAdd;
+            PlayerDataHandleX.Instance.Score = score;
+            scoreText.text = "Score: " + score;
     }
 
     public void UpdateLives(int livesToDecrease)
@@ -127,12 +127,12 @@ public class GameManager : MonoBehaviour
         data.HighiestScore = bestPlayerScore;
 
         string json = JsonUtility.ToJson(data);
-        File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
+        File.WriteAllText(Application.persistentDataPath + "/savefile-ball-ninja.json", json);
     }
 
     public void LoadGameRankX()
     {
-        string path = Application.persistentDataPath + "/savefile.json";
+        string path = Application.persistentDataPath + "/savefile-ball-ninja.json";
 
         if (File.Exists(path))
         {

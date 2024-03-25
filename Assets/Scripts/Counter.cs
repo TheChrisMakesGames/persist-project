@@ -8,20 +8,20 @@ public class Counter : MonoBehaviour
     public TextMeshProUGUI ScoreText;
     public TextMeshProUGUI EndScoreText;
     public bool counting = false;
-    public int Score = 0;
+    public int score = 0;
 
     private void Start()
     {
-        Score = 0;
+        score = 0;
     }
 
     public void OnTriggerEnter(Collider other)
     {
         if(counting == true)
         {
-            Score += 1;
-            PlayerDataHandleX.Instance.Score = Score;
-            ScoreText.text = "Score : " + Score;
+            PlayerDataHandleX.Instance.Score = score;
+            score += 1;
+            ScoreText.text = "Score : " + score;
         }
     }
 }

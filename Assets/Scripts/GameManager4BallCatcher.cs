@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class GameManager4BallCatcher : MonoBehaviour
 {
     public List<GameObject> ballPrefabs;
+    public float spawnRate = 2f;
     private Timer timer;
     private Counter counter;
     public Button backToStart;
@@ -18,7 +19,7 @@ public class GameManager4BallCatcher : MonoBehaviour
     public GameObject instructionsPanelTwo;
     public TextMeshProUGUI compliment;
     public TextMeshProUGUI score;
-   public TextMeshProUGUI CurrentPlayerName;
+    public TextMeshProUGUI CurrentPlayerName;
     public TextMeshProUGUI BestPlayerNameAndScore;
     private static int BestScore;
     private static string BestPlayer; 
@@ -49,8 +50,9 @@ public class GameManager4BallCatcher : MonoBehaviour
     }
     public void StartInstructions()
     {
-        startScreen.gameObject.SetActive(false);
         instructions = true;
+
+        startScreen.gameObject.SetActive(false);
         instructionsPanelOne.gameObject.SetActive(true);
     }
     public void NextPage()
@@ -58,7 +60,7 @@ public class GameManager4BallCatcher : MonoBehaviour
         instructionsPanelOne.gameObject.SetActive(false);
         instructionsPanelTwo.gameObject.SetActive(true);
     }
-    public void StartGame()
+    public void StartGameX()
     {
         StartCoroutine(SpawnBalls());
         instructions = false;
@@ -76,7 +78,7 @@ public class GameManager4BallCatcher : MonoBehaviour
             BestPlayer = PlayerDataHandleX.Instance.PlayerName;
             BestScore = CurrentScore;
 
-            BestPlayerNameAndScore.text = $"Best Score - {BestPlayer}: {BestScore}";
+            BestPlayerNameAndScore.text = $"Best Score - {BestPlayer}: {BestScore + 1}";
 
             SaveGameRank(BestPlayer, BestScore);
         }
@@ -92,9 +94,9 @@ public class GameManager4BallCatcher : MonoBehaviour
             StopCoroutine(SpawnBalls());
             backToStart.gameObject.SetActive(false);
             CheckBestPlayer();
-            if(counter.Score < 5) {
+            if(counter.score < 5) {
                 compliment.SetText("Better Luck Next Time!");
-            } else if(counter.Score > 5 && counter.Score < 10) {
+            } else if(counter.score > 5 && counter.score < 10) {
                 compliment.SetText("Good Job!");
             } else {
                 compliment.SetText("Wow! Great Job!");
@@ -105,7 +107,7 @@ public class GameManager4BallCatcher : MonoBehaviour
     {
         while (!gameOver && gameActive)
         {
-            yield return new WaitForSeconds(2.5f);
+            yield return new WaitForSeconds(spawnRate);
             int ballIndex = Random.Range(0, ballPrefabs.Count);
             Instantiate(ballPrefabs[ballIndex]);
         }
@@ -124,7 +126,7 @@ public class GameManager4BallCatcher : MonoBehaviour
         }
         else
         {
-            BestPlayerNameAndScore.text = $"Best Score - {BestPlayer}: {BestScore}";
+            BestPlayerNameAndScore.text = $"Best Score - {BestPlayer}: {BestScore + 1}";
         }
 
     }
@@ -137,12 +139,12 @@ public class GameManager4BallCatcher : MonoBehaviour
         data.HighiestScore = bestPlayerScore;
 
         string json = JsonUtility.ToJson(data);
-        File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
+        File.WriteAllText(Application.persistentDataPath + "/savefile-ball-catcher.json", json);
     }
 
     public void LoadGameRankX()
     {
-        string path = Application.persistentDataPath + "/savefile.json";
+        string path = Application.persistentDataPath + "/savefile-ball-catcher.json";
 
         if (File.Exists(path))
         {
